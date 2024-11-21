@@ -30,5 +30,5 @@ jobs:
                 deployment_package: deploy.zip
                 # Github Action will put the deploy.zip file into this bucket
                 existing_bucket_name: elasticbeanstalk-ap-southeast-1-381491951595
-                aws-access-key-id: ${{ secrets.AWS_SECRET_KEY }}
-                aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+                aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+                aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
