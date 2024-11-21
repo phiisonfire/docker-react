@@ -11,4 +11,4 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - run: docker build -t phinguyen/react-test -f Dockerfile.dev .
-            - run: docker run -e CI=true phinguyen/react-test npm test
+            - run: docker run -e CI=true phinguyen/react-test npm test -- --coverage
