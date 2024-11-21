@@ -12,3 +12,23 @@ jobs:
             - uses: actions/checkout@v2
             - run: docker build -t phinguyen/react-test -f Dockerfile.dev .
             - run: docker run -e CI=true phinguyen/react-test npm test -- --coverage
+            
+            # Elastic Beanstalk will extract this deploy.zip file and look for Dockerfile & docker-compose.yaml to deploy
+            # Typically, it will run `docker compose up` command
+            # So, the deployment logic need to be defined in docker-compose.yml & Dockerfile as we did in local
+
+            - name: Generate deployment package
+              run: zip -r deploy.zip . -x '*.git*'
+
+            - name: Deploy to EB
+              uses: einaregilsson/beanstalk-deploy@v18
+              with:
+                application_name: frontend
+                environment_name: Frontend-env
+                region: "ap-southeast-1"
+                version_label: ${{ github.sha }}
+                deployment_package: deploy.zip
+                # Github Action will put the deploy.zip file into this bucket
+                existing_bucket_name: elasticbeanstalk-ap-southeast-1-381491951595
+                aws_access_key: ${{ secrets.AWS_SECRET_KEY }}
+                aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}

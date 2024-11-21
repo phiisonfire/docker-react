@@ -3,20 +3,7 @@ version: '3'
 services:
   web:
     build:
-      context: . # specify the path to directory that contains Dockerfile
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
-    volumes:
-      - /app/node_modules # do not map anything to /app/node_modules inside the container
-      - .:/app # map current folder to /app folder inside the container
-  
-  tests:
-    build:
       context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /app/node_modules
-      - .:/app
-    # override the default command (of the image) when the container start
-    command: ["npm", "run", "test"] 
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
