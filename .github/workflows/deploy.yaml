@@ -1,0 +1,14 @@
+name: Deploy Frontend
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: docker build -t phinguyen/react-test -f Dockerfile.dev .
+            - run: docker run -e CI=true phinguyen/react-test npm test
