@@ -16,6 +16,8 @@ RUN npm run build
 
 FROM nginx
 
+EXPOSE 80
+
 # just copy the /app/build of the previous image (and remove the rest: node, npm, dependencies, ...) 
 # to limit the size of the result image
 COPY --from=builder /app/build /usr/share/nginx/html
